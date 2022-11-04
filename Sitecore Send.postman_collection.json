@@ -1,0 +1,2229 @@
+{
+	"info": {
+		"_postman_id": "5f8411ef-9d0e-47c5-865e-533d2640d5c2",
+		"name": "Sitecore Send",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10548454"
+	},
+	"item": [
+		{
+			"name": "Maling list",
+			"item": [
+				{
+					"name": "Getting mailing lists",
+					"item": [
+						{
+							"name": "Getting all active mailing lists",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists.{{Format}}?apikey={{apikey}}&WithStatistics=true&ShortBy=CreatedOn&SortMethod=ASC",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										},
+										{
+											"key": "WithStatistics",
+											"value": "true",
+											"description": "Possible values:  true , false ."
+										},
+										{
+											"key": "ShortBy",
+											"value": "CreatedOn",
+											"description": "Possible values:  Name , Subject , Status , DeliveredOn , CreatedOn ."
+										},
+										{
+											"key": "SortMethod",
+											"value": "ASC",
+											"description": "Possible values:  ASC , DESC ."
+										}
+									]
+								},
+								"description": "Gets a list of your active mailing lists in your account."
+							},
+							"response": []
+						},
+						{
+							"name": "Getting all active mailing lists with paging",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:Page/:PageSize.{{Format}}?apikey={{apikey}}&ShortBy=CreatedOn&SortMethod=ASC",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":Page",
+										":PageSize.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										},
+										{
+											"key": "ShortBy",
+											"value": "CreatedOn",
+											"description": "Possible values:  Name , Subject , Status , DeliveredOn , CreatedOn ."
+										},
+										{
+											"key": "SortMethod",
+											"value": "ASC",
+											"description": "Possible values:  ASC , DESC ."
+										}
+									],
+									"variable": [
+										{
+											"key": "Page",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "20"
+										}
+									]
+								},
+								"description": "Gets a list of your active mailing lists in your account. Because the results for this call could be quite big, paging information is required as input."
+							},
+							"response": []
+						},
+						{
+							"name": "Geetting mailing list details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/details.{{Format}}?apikey={{apikey}}&WithStatistics=true",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"details.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										},
+										{
+											"key": "WithStatistics",
+											"value": "true",
+											"description": "Possible values:  true , false ."
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Gets details for a given mailing list. You may include subscriber statistics in your results or not. Any segments existing for the requested mailing list will not be included in the results."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Creating and managing mailing lists",
+					"item": [
+						{
+							"name": "Creating a maling list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"New List\",\n  \"ConfirmationPage\": \"www.someUrl.com\",\n  \"RedirectAfterUnsubscribePage\": \"www.someUrl.com\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/create.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										"create.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									]
+								},
+								"description": "Creates a new empty mailing list in your account."
+							},
+							"response": []
+						},
+						{
+							"name": "Updateing a mailing list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"New List Name 2\",\n  \"ConfirmationPage\": \"www.someotherUrl.com\",\n  \"RedirectAfterUnsubscribePage\": \"www.someotherUrl.com\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/update.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"update.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Updates the properties of an existing mailing list."
+							},
+							"response": []
+						},
+						{
+							"name": "Deleting a mailing list",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/delete.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"delete.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Deletes a mailing list from your account."
+							},
+							"response": []
+						},
+						{
+							"name": "Creating a custom field",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Town\",\n  \"CustomFieldType\": \"SingleSelectDropdown\",\n  \"Options\": \"Athens,London,New York\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/customfields/create.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"customfields",
+										"create.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Creates a new custom field in the specified mailing list."
+							},
+							"response": []
+						},
+						{
+							"name": "Updating a custom field",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/customfields/:CustomFieldID/update.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"customfields",
+										":CustomFieldID",
+										"update.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "CustomFieldID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Updates the properties of an existing custom field in the specified mailing list."
+							},
+							"response": []
+						},
+						{
+							"name": "Removing a custom field",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/customfields/:CustomFieldID/delete.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"customfields",
+										":CustomFieldID",
+										"delete.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "CustomFieldID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Removes a custom field definition from the specified mailing list."
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Through the Moosend Mailing List API you can create new lists, subscribe new users to your existing lists, manage segments and create or delete custom fields. It also supports fetching list statistics such as the number of active vs unsubscribed members, as well as retrieving subscriber information for a specific mailing list."
+		},
+		{
+			"name": "Subscribers",
+			"item": [
+				{
+					"name": "Getting subscribers",
+					"item": [
+						{
+							"name": "Getting subscribers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/subscribers/:Status.{{Format}}?apikey={{apikey}}&Page=1&PageSize=100",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"subscribers",
+										":Status.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										},
+										{
+											"key": "Page",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "100"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "Status",
+											"value": "Subscribed",
+											"description": "Possible values:  Subscribed , Unsubscribed , Bounced , Removed ."
+										}
+									]
+								},
+								"description": "Gets a list of all subscribers in a given mailing list. You may filter the list by setting a date to fetch those subscribed since then and/or by their status. Because the results for this call could be quite big, paging information is required as input."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get subscriber detail",
+					"item": [
+						{
+							"name": "Get subscriber by email address",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/view.{{Format}}?apikey={{apikey}}&Email=someEmail%40email.com",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										"view.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										},
+										{
+											"key": "Email",
+											"value": "someEmail%40email.com"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Searches for a subscriber with the specified email address in the specified mailing list and returns detailed information such as id, name, date created, date unsubscribed, status and custom fields"
+							},
+							"response": []
+						},
+						{
+							"name": "Get subscriber by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/find/:SubscriberID.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										"find",
+										":SubscriberID.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "SubscriberID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Searches for a subscriber with the specified unique id in the specified mailing list and returns detailed information such as email, name, date created, date unsubscribed, status and custom fields."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add or update subscribers",
+					"item": [
+						{
+							"name": "Adding subscribers",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Paul3\",\n  \"Email\": \"someEmail3@email.com\",\n  \"HasExternalDoubleOptIn\": false,\n  \"CustomFields\": [\n    \"Age=25\",\n    \"Country=USA\"\n  ]\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/subscribe.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										"subscribe.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Adds a new subscriber to the specified mailing list. If there is already a subscriber with the specified email address in the list, an update will be performed instead. The rate limit for this request is 10 requests per 10 seconds (\\*per API key)."
+							},
+							"response": []
+						},
+						{
+							"name": "Adding multiple subscribers",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"HasExternalDoubleOptIn\": false,\n  \"Subscribers\": [\n    {\n      \"Name\": \"test1Email\",\n      \"Email\": \"test1@test.com\",\n      \"CustomFields\": [\n        \"Country=UK\"\n      ]\n    },\n    {\n      \"Name\": \"test2133Email\",\n      \"Email\": \"test2133@test.com\",\n      \"CustomFields\": [\n        \"Age=25\",\n        \"Country=USA\"\n      ]\n    }\n  ]\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/subscribe_many.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										"subscribe_many.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "This method allows you to add multiple subscribers in a mailing list with a single call. If some subscribers already exist with the given email addresses, they will be updated. If you try to add a subscriber with an invalid email address, this attempt will be ignored, as the process will skip to the next subscriber automatically. The rate limit for this request is 2 requests per 10 seconds (\\*per API key)."
+							},
+							"response": []
+						},
+						{
+							"name": "Updating a subscriber",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Some Name\",\n  \"HasExternalDoubleOptIn\": false,\n  \"Email\": \"someemail@email.com\",\n  \"CustomFields\": [\n    \"Age=25\",\n    \"Country=USA\"\n  ]\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/update/:SubscriberID.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										"update",
+										":SubscriberID.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "SubscriberID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Updates a subscriber in the specified mailing list."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Remove or Unsubscribe subscribers",
+					"item": [
+						{
+							"name": "Unsubscribing subscribers from account",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Email\": \"someemail@email.com\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/unsubscribe.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										"unsubscribe.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									]
+								},
+								"description": "Unsubscribes a subscriber from the account. The rate limit for this request is 20 requests per 10 seconds (\\*per API key)."
+							},
+							"response": []
+						},
+						{
+							"name": "Unsubscribing subscribers from mailing list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Email\": \"test1@test.com\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/unsubscribe.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										"unsubscribe.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Unsubscribes a subscriber from the specified mailing list. The rate limit for this request is 20 requests per 10 seconds (\\*per API key)."
+							},
+							"response": []
+						},
+						{
+							"name": "Unsubscribing subscribers from mailing list and a specified campaign",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Email\": \"test1@test.com\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/:CampaignID/unsubscribe.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										":CampaignID",
+										"unsubscribe.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Unsubscribes a subscriber from the specified mailing list and the specified campaign. This call will take into account the setting you have in \"unsubscribe settings\" and will remove the subscriber from all other mailing lists or not accordingly. The rate limit for this request is 20 requests per 10 seconds (\\*per API key)."
+							},
+							"response": []
+						},
+						{
+							"name": "Removing a subscriber",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Email\": \"test1@test.com\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/remove.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										"remove.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Removes a subscriber from the specified mailing list permanently (without moving to the suppression list)."
+							},
+							"response": []
+						},
+						{
+							"name": "Removing multiple subscribers",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Emails\": \"someEmail@email.com,someEmail2@email.com,someEmail3@email.com\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/subscribers/:MailingListID/remove_many.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"subscribers",
+										":MailingListID",
+										"remove_many.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Removes a list of subscribers from the specified mailing list permanently (without putting them in the suppression list). Any invalid email addresses specified will be ignored."
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Through the Moosend Subscriber API you can add or remove mailing list subscribers, fetch and update their information and batch import new subscribers."
+		},
+		{
+			"name": "Campaigns",
+			"item": [
+				{
+					"name": "Getting Campaigns",
+					"item": [
+						{
+							"name": "Get All Campaigns",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									]
+								},
+								"description": "Returns a list of all campaigns in your account with detailed information. Because the results for this call could be quite big, paging information is required as input."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Campaigns by Page",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:Page.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":Page.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "Page",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Returns a list of all campaigns in your account with detailed information. Because the results for this call could be quite big, paging information is required as input."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Campaigns by Page and Pagesize",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:Page/:PageSize.{{Format}}?apikey={{apikey}}&SortBy=CreatedOn&SortMethod=ASC",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":Page",
+										":PageSize.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										},
+										{
+											"key": "SortBy",
+											"value": "CreatedOn",
+											"description": "Possible values:  Name , Subject , Status , DeliveredOn , CreatedOn ."
+										},
+										{
+											"key": "SortMethod",
+											"value": "ASC",
+											"description": "Possible values:  ASC , DESC ."
+										}
+									],
+									"variable": [
+										{
+											"key": "Page",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting Campaign Details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/view.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"view.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Returns a complete set of properties that describe the requested campaign in detail. No statistics are included in the result."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Getting Senders",
+					"item": [
+						{
+							"name": "Getting All Your Senders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/view.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"view.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Gets a list of your active senders in your account. You may specify any email address of these senders when sending a campaign."
+							},
+							"response": []
+						},
+						{
+							"name": "Getting Sender Details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/senders/find_one.{{Format}}?Email=%22sender%40example.com&apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"senders",
+										"find_one.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "Email",
+											"value": "%22sender%40example.com"
+										},
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									]
+								},
+								"description": "Returns basic information for the specified sender identified by its email address."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Creating & Managing Campaigns",
+					"item": [
+						{
+							"name": "Cloning An Existing Campaign",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Code\": 0,\n  \"Error\": null,\n  \"Context\": {\n    \"ID\": \"248f97f5-1e5f-4e17-8fa8-818dc112be10\",\n    \"Name\": \"Test\",\n    \"Subject\": \"Test\",\n    \"WebLocation\": \"http://www.your-domain.com/newsletter\",\n    \"HTMLContent\": \"Some html content\",\n    \"PlainContent\": \"Plain context ... \",\n    \"Sender\": {\n      \"ID\": \"e9d2ed56-fc20-4337-bb6a-8b5884e8dfa6\",\n      \"Name\": \"Test\",\n      \"Email\": \"test@moosend.com\",\n      \"CreatedOn\": \"/Date(1457526079160+0100)/\",\n      \"IsEnabled\": true,\n      \"SpfVerified\": false,\n      \"DkimVerified\": true,\n      \"DkimPublic\": \"sender email dkim public\"\n    },\n    \"DeliveredOn\": null,\n    \"ReplyToEmail\": {\n      \"ID\": \"21234a-cede-1234-1234-1bd8d7a46d2d\",\n      \"Name\": \"Andreas\",\n      \"Email\": \"andreas@moosend.com\",\n      \"CreatedOn\": \"/Date(1457526079160+0100)/\",\n      \"IsEnabled\": true,\n      \"SpfVerified\": false,\n      \"DkimVerified\": true,\n      \"DkimPublic\": \"reply to email dkim public\"\n    },\n    \"CreatedOn\": \"/Date(1469541491211)/\",\n    \"UpdatedOn\": \"/Date(1469541491211)/\",\n    \"ScheduledFor\": null,\n    \"Timezone\": \"Korea Standard Time\",\n    \"FormatType\": 0,\n    \"ABCampaignData\": {\n      \"ID\": 4080,\n      \"SubjectB\": \"B Subject\",\n      \"PlainContentB\": null,\n      \"HTMLContentB\": null,\n      \"WebLocationB\": null,\n      \"SenderB\": null,\n      \"HoursToTest\": 3,\n      \"ListPercentage\": 19,\n      \"ABCampaignType\": 2,\n      \"ABWinnerSelectionType\": 1,\n      \"DeliveredOnA\": null,\n      \"DeliveredOnB\": null\n    },\n    \"MailingLists\": [\n      {\n        \"MailingListID\": \"e9d2ed56-fc20-4337-bb6a-8b5884e8dfa6\",\n        \"SegmentID\": 0\n      }\n    ],\n    \"ConfirmationTo\": \"test@moosend.com\",\n    \"Status\": 0,\n    \"IsTransactional\": false\n  }\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/clone.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"clone.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Creates an exact copy of an existing campaign. The new campaign is created as a draft."
+							},
+							"response": []
+						},
+						{
+							"name": "Creating A Draft Campagin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Test campaign\",\n  \"Subject\": \"Some subject\",\n  \"SenderEmail\": \"something@email.com\",\n  \"ReplyToEmail\": \"something@email.com\",\n  \"ConfirmationToEmail\": \"something@email.com\",\n  \"WebLocation\": \"http://www.mysite.gr/newsletter/index\",\n  \"MailingLists\": [\n    {\n      \"MailingListID\": \"adaf2fe1-55db-42dc-aaf8-56d8f502138d\",\n      \"SegmentID\": \"10166\"\n    },\n    {\n      \"MailingListID\": \"dce99b7a-2619-4805-aaeb-7fecdcb3c71b\"\n    }\n  ],\n  \"IsAB\": \"true\",\n  \"ABCampaignType\": \"Content\",\n  \"WebLocationB\": \"http://www.mysite.gr/newsletter/index\",\n  \"HoursToTest\": \"2\",\n  \"ListPercentage\": \"20\",\n  \"ABWinnerSelectionType\": \"OpenRate\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/create.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										"create.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									]
+								},
+								"description": "Creates a new campaign in your account. This method does not send the campaign, but rather creates it as a draft, ready for sending or testing. You can choose to send either a regular campaign or an AB split campaign. Campaign content must be specified from a web location. Ignore _**(A/B Split Campaign Option)**_ if you want to create a regular campaign."
+							},
+							"response": []
+						},
+						{
+							"name": "Updating A Draft Campaign",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Test campaign\",\n  \"Subject\": \"Some subject\",\n  \"SenderEmail\": \"something@email.com\",\n  \"ReplyToEmail\": \"something@email.com\",\n  \"ConfirmationToEmail\": \"something@email.com\",\n  \"WebLocation\": \"http://www.mysite.gr/newsletter/index\",\n  \"MailingLists\": [\n    {\n      \"MailingListID\": \"adaf2fe1-55db-42dc-aaf8-56d8f502138d\",\n      \"SegmentID\": \"10166\"\n    },\n    {\n      \"MailingListID\": \"dce99b7a-2619-4805-aaeb-7fecdcb3c71b\"\n    }\n  ],\n  \"IsAB\": \"true\",\n  \"ABCampaignType\": \"Content\",\n  \"WebLocationB\": \"http://www.mysite.gr/newsletter/index\",\n  \"HoursToTest\": \"2\",\n  \"ListPercentage\": \"20\",\n  \"ABWinnerSelectionType\": \"OpenRate\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/update.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"update.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleting A Campaign",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/delete.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"delete.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Testing a campaign",
+					"item": [
+						{
+							"name": "Testing a campaign",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"TestEmails\": [\n    \"email1@email.com\",\n    \"email2@email.com\"\n  ]\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/send_test.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"send_test.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Sends a test email of a draft campaign to a list of email addresses you specify for previewing."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sending a campaign",
+					"item": [
+						{
+							"name": "Sending a campaign",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/send.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"send.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Sends an existing draft campaign to all recipients specified in its mailing list. The campaign is sent immediatelly."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Getting Campaign Statistics",
+					"item": [
+						{
+							"name": "Get Campagin statics",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/stats/:Type.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"stats",
+										":Type.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										},
+										{
+											"key": "Type",
+											"value": "Sent",
+											"description": "Possible values:  Sent , Opened , LinkClicked , Forward , Unsubscribed , Bounced ."
+										}
+									]
+								},
+								"description": "Returns a detailed list of statistics for a given campaign based on activity such as emails sent, opened, bounced, link clicked, etc. Because the results for this call could be quite big, paging information is required as input."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Campaign Statistics With Paging & Filtered",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/stats/:Type.{{Format}}?apikey={{apikey}}&Page=1&PageSize=1&From=01-02-2022&To=20-03-2022",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"stats",
+										":Type.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										},
+										{
+											"key": "Page",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "1"
+										},
+										{
+											"key": "From",
+											"value": "01-02-2022"
+										},
+										{
+											"key": "To",
+											"value": "20-03-2022"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										},
+										{
+											"key": "Type",
+											"value": "Opened",
+											"description": "Possible values:  Sent , Opened , LinkClicked , Forward , Unsubscribed , Bounced , Complained ."
+										}
+									]
+								},
+								"description": "Returns a detailed list of statistics for a given campaign based on activity such as emails sent, opened, bounced, link clicked, etc. Because the results for this call could be quite big, paging information is required as input."
+							},
+							"response": []
+						},
+						{
+							"name": "Campaign Summary",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/view_summary.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"view_summary.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Provides a basic summary of the results for any sent campaign such as the number of recipients, opens, clicks, bounces, unsubscribes, forwards etc. to date."
+							},
+							"response": []
+						},
+						{
+							"name": "Activity by Location",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/stats/countries.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"stats",
+										"countries.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Returns a detailed report of your campaign opens (unique and total) by country."
+							},
+							"response": []
+						},
+						{
+							"name": "Link Activity",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/stats/links.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"stats",
+										"links.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Returns a detailed report of your campaign opens (unique and total) by country."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sending Campaigns",
+					"item": [
+						{
+							"name": "Scheduling A Campaign",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"DateTime\": \"22-11-2022 13:00\",\n  \"Timezone\": \"Tokyo Standard Time\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/schedule.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"schedule.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Assigns a scheduled date and time at which the campaign will be delivered.\n\n- `Timezone` : The timezone the specified date and time refers to. By default the timezone in your settings panel will be used. If specified, one of the following values must be used. _**(Optional)**_\n    - `Dateline Standard Time`\n    - `Samoa Standard Time`\n    - `Hawaiian Standard Time`\n    - `Alaskan Standard Time`\n    - `Pacific Standard Time`\n    - `Pacific Standard Time (Mexico)`\n    - `US Mountain Standard Time`\n    - `Mountain Standard Time (Mexico)`\n    - `Mountain Standard Time`\n    - `Central Standard Time`\n    - `Central Standard Time (Mexico)`\n    - `Canada Central Standard Time`\n    - `SA Pacific Standard Time`\n    - `US Eastern Standard Time`\n    - `Eastern Standard Time`\n    - `Venezuela Standard Time`\n    - `Atlantic Standard Time`\n    - `SA Western Standard Time`\n    - `Central Brazilian Standard Time`\n    - `Pacific SA Standard Time`\n    - `Newfoundland Standard Time`\n    - `E. South America Standard Time`\n    - `Argentina Standard Time`\n    - `SA Eastern Standard Time`\n    - `Greenland Standard Time`\n    - `Montevideo Standard Time`\n    - `Mid-Atlantic Standard Time`\n    - `Azores Standard Time`\n    - `Cape Verde Standard Time`\n    - `Greenwich Standard Time`\n    - `GMT Standard Time`\n    - `Morocco Standard Time`\n    - `W. Central Africa Standard Time`\n    - `Central European Standard Time`\n    - `Romance Standard Time`\n    - `W. Europe Standard Time`\n    - `Namibia Standard Time`\n    - `E. Europe Standard Time`\n    - `Israel Standard Time`\n    - `FLE Standard Time`\n    - `South Africa Standard Time`\n    - `Egypt Standard Time`\n    - `Middle East Standard Time`\n    - `GTB Standard Time`\n    - `Jordan Standard Time`\n    - `Iran Standard Time`\n    - `Georgian Standard Time`\n    - `E. Africa Standard Time`\n    - `Russian Standard Time`\n    - `Arab Standard Time`\n    - `Arabic Standard Time`\n    - `Caucasus Standard Time`\n    - `Mauritius Standard Time`\n    - `Azerbaijan Standard Time`\n    - `Arabian Standard Time`\n    - `Afghanistan Standard Time`\n    - `West Asia Standard Time`\n    - `Pakistan Standard Time`\n    - `Ekaterinburg Standard Time`\n    - `Sri Lanka Standard Time`\n    - `India Standard Time`\n    - `Nepal Standard Time`\n    - `N. Central Asia Standard Time`\n    - `Central Asia Standard Time`\n    - `Myanmar Standard Time`\n    - `North Asia Standard Time`\n    - `SE Asia Standard Time`\n    - `Taipei Standard Time`\n    - `W. Australia Standard Time`\n    - `Singapore Standard Time`\n    - `North Asia East Standard Time`\n    - `China Standard Time`\n    - `Yakutsk Standard Time`\n    - `Korea Standard Time`\n    - `Tokyo Standard Time`\n    - `AUS Central Standard Time`\n    - `Cen. Australia Standard Time`\n    - `AUS Eastern Standard Time`\n    - `West Pacific Standard Time`\n    - `Tasmania Standard Time`\n    - `Vladivostok Standard Time`\n    - `Central Pacific Standard Time`\n    - `New Zealand Standard Time`\n    - `Tonga Standard Time`"
+							},
+							"response": []
+						},
+						{
+							"name": "Unscheduling a campaign",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/unschedule.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"unschedule.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Removes a previously defined scheduled date and time from a campaign, so that it will be delivered immediately if already queued or when sent."
+							},
+							"response": []
+						},
+						{
+							"name": "A/B Test Campaign Summary",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/campaigns/:CampaignID/view_ab_summary.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"campaigns",
+										":CampaignID",
+										"view_ab_summary.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "CampaignID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Provides a basic summary of the results for a sent AB test campaign, separately for each version (A and B), such as the number of recipients, opens, clicks, bounces, unsubscribes, forwards etc to date."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Segments",
+			"item": [
+				{
+					"name": "Getting segments",
+					"item": [
+						{
+							"name": "Getting segments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting segment details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments/:SegmentID/details.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments",
+										":SegmentID",
+										"details.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "SegmentID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Gets detailed information on a specific segment and its criteria. However, it does not include the subscribers returned by the segment."
+							},
+							"response": []
+						},
+						{
+							"name": "Getting segment subscribers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments/:SegmentID/members.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments",
+										":SegmentID",
+										"members.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "SegmentID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Gets a list of the subscribers that the specified segment returns according to its criteria. Because the results for this call could be quite big, paging information is required as input."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create & Update Segments",
+					"item": [
+						{
+							"name": "Creating a new empty segment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"New Customers\",\n  \"MatchType\": \"All\",\n  \"FetchType\": \"Top\",\n  \"FetchValue\": \"200\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments/create.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments",
+										"create.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Creates a new empty segment (without criteria) for the given mailing list. You may specify the name of the segment and the way the criteria will match together."
+							},
+							"response": []
+						},
+						{
+							"name": "Creating a new segment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments/create.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments",
+										"create.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Creates a new segment (with criteria) for the given mailing list. You may specify the name of the segment, the way the criteria will match together and the criteria that you wish to segment your list by."
+							},
+							"response": []
+						},
+						{
+							"name": "Updating a segment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Customer Tracking and Opener\",\n  \"MatchType\": \"Any\",\n  \"FetchType\": \"All\",\n  \"Criteria\": [\n    {\n      \"Field\": \"AddedAnythingToCart\",\n      \"Comparer\": \"IsTrue\",\n      \"Times\": 2,\n      \"ProductCode\": \"123\",\n      \"LastXMinutes\": 4320,\n      \"WebsiteId\": \"12345678-1234-abdc-efgh-1231bc456efg789hij\"\n    },\n    {\n      \"Field\": \"OpenedAnyCampaign\",\n      \"Comparer\": \"IsTrue\",\n      \"DateFrom\": \"2019-09-01\",\n      \"DateTo\": \"2020-12-01\"\n    }\n  ]\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments/:SegmentID/update.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments",
+										":SegmentID",
+										"update.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "SegmentID",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding criteria to segments",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Field\": \"DateAdded\",\n  \"DateFunction\": \"Year\",\n  \"Comparer\": \"Is\",\n  \"Value\": \"2020\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments/:SegmentID/criteria/add.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments",
+										":SegmentID",
+										"criteria",
+										"add.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "SegmentID",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Updating segment criteria",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Field\": \"LinkURL\",\n  \"Comparer\": \"is\",\n  \"Value\": \"https://www.moosend.com/\"\n}"
+								},
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments/:SegmentID/criteria/:CriteriaID/update.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments",
+										":SegmentID",
+										"criteria",
+										":CriteriaID",
+										"update.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "SegmentID",
+											"value": ""
+										},
+										{
+											"key": "CriteriaID",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{hostname}}/v3/lists/:MailingListID/segments/:SegmentID/delete.{{Format}}?apikey={{apikey}}",
+									"protocol": "https",
+									"host": [
+										"{{hostname}}"
+									],
+									"path": [
+										"v3",
+										"lists",
+										":MailingListID",
+										"segments",
+										":SegmentID",
+										"delete.{{Format}}"
+									],
+									"query": [
+										{
+											"key": "apikey",
+											"value": "{{apikey}}"
+										}
+									],
+									"variable": [
+										{
+											"key": "MailingListID",
+											"value": ""
+										},
+										{
+											"key": "SegmentID",
+											"value": ""
+										}
+									]
+								},
+								"description": "Deletes a segment along with its criteria from the mailing list. The subscribers of the mailing list that the segment returned are not deleted or affected in any way."
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "The Segmentation Service allows you to retrieve or count mailing list members based on given criteria. Combinations of criteria can be as complex as you want with nested AND / OR expressions."
+		}
+	],
+	"variable": [
+		{
+			"key": "Page",
+			"value": "20"
+		}
+	]
+}
